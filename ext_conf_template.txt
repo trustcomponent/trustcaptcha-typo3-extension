@@ -1,0 +1,40 @@
+# cat=basic//10; type=string; label=Site Key: Your public Site Key for the widget (required).
+siteKey =
+
+# cat=basic//20; type=string; label=Secret-Key / API-Key: Used server-side (required).
+secretKey =
+
+# cat=basic//30; type=string; label=License Key (optional).
+licenseKey =
+
+# cat=basic//40; type=string; label=Threshold (0..1): Accept <= threshold, reject > threshold (recommended: 0.5).
+threshold = 0.5
+
+# --- Frontend widget options ---
+# cat=frontend//10; type=string; label=Language: "auto" or ISO code (e.g. "en", "de", ...).
+language = auto
+
+# cat=frontend//20; type=string; label=Theme: "light", "dark" or "media".
+theme = light
+
+# cat=frontend//30; type=boolean; label=Autostart: Widget starts automatically when an input in the same form is touched.
+autostart = 1
+
+# cat=frontend//40; type=boolean; label=Invisible Mode: Run in invisible mode (badge only).
+invisible = 0
+
+# cat=frontend//50; type=boolean; label=Hide Branding (premium).
+hideBranding = 0
+
+# cat=frontend//60; type=text; label=Custom Design (JSON): Optional theme overrides as JSON (premium).
+customDesignJson =
+
+# cat=frontend//70; type=text; label=Custom Translations (JSON): Optional i18n overrides as JSON.
+customTranslationsJson =
+
+# cat=frontend//80; type=string; label=Bypass Token (optional).
+bypassToken =
+
+# --- Integration toggles ---
+# cat=integration//30; type=boolean; label=Protect Frontend Login (felogin): Adds CAPTCHA to FE login. ⚠ Leave off until tested to avoid lockout.
+# integrateLogin = 0

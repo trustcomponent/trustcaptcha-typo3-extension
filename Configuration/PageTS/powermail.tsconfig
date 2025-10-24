@@ -1,0 +1,6 @@
+tx_powermail.flexForm.type.addFieldOptions.trustcaptcha = TrustCaptcha
+tx_powermail.flexForm.field.conf.trustcaptcha {
+  addFieldWrap = 0
+  addFieldClass = 0
+  addFieldMandatory = 0
+}

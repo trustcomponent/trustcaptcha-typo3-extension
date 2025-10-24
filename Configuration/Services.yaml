@@ -1,0 +1,17 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Trustcomponent\Trustcaptcha\EventListener\AddAssetsEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'trustcaptcha.addAssets'
+        event: TYPO3\CMS\Core\Page\Event\BeforeJavaScriptsRenderingEvent
+
+  Trustcomponent\Trustcaptcha\EventListener\ContentSecurityPolicyEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'trustcaptcha.csp'
+        event: TYPO3\CMS\Core\Security\ContentSecurityPolicy\Event\PolicyMutatedEvent

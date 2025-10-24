@@ -1,0 +1,11 @@
+plugin.tx_form.view {
+  partialRootPaths {
+    20 = EXT:trustcaptcha/Resources/Private/Frontend/Partials/
+  }
+}
+
+module.tx_form.view {
+  partialRootPaths {
+    20 = EXT:trustcaptcha/Resources/Private/Frontend/Partials/
+  }
+}

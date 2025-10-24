@@ -1,0 +1,23 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+      xmlns:tc="http://typo3.org/ns/Trustcomponent/Trustcaptcha/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<formvh:renderRenderable renderable="{element}">
+    <f:render partial="Field/Field" arguments="{element: element}" contentAs="elementContent">
+        <trustcaptcha-component
+                token-field-name="tc-verification-token"
+                sitekey="{tc:configValue(property:'siteKey')}"
+                license="{tc:configValue(property:'licenseKey')}"
+                language="{tc:configValue(property:'language')}"
+                theme="{tc:configValue(property:'theme')}"
+                autostart="{tc:configBool(property:'autostart')}"
+                invisible="{tc:configBool(property:'invisible')}"
+                hide-branding="{tc:configBool(property:'hideBranding')}"
+                custom-design="{tc:configValue(property:'customDesignJson')}"
+                custom-translations="{tc:configValue(property:'customTranslationsJson')}"
+                bypass-token="{tc:configValue(property:'bypassToken')}"
+        ></trustcaptcha-component>
+    </f:render>
+</formvh:renderRenderable>
+</html>

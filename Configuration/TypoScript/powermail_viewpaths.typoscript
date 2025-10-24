@@ -1,0 +1,6 @@
+plugin.tx_powermail.view {
+  templateRootPaths.10 = EXT:powermail/Resources/Private/Frontend/Templates/
+  partialRootPaths.10  = EXT:powermail/Resources/Private/Frontend/Partials/
+  layoutRootPaths.10   = EXT:powermail/Resources/Private/Frontend/Layouts/
+  partialRootPaths.20  = EXT:trustcaptcha/Resources/Private/Frontend/Partials/Powermail/
+}

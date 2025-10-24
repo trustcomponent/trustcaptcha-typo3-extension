@@ -1,0 +1,26 @@
+plugin.tx_powermail {
+  settings {
+    setup {
+      validators {
+        10 {
+          class = Trustcomponent\Trustcaptcha\Powermail\Validator\TrustCaptchaValidator
+        }
+      }
+      spamshield._disable {
+        10 {
+          class = Trustcomponent\Trustcaptcha\Powermail\SpamShield\Breaker\TrustCaptchaBreaker
+        }
+      }
+    }
+  }
+
+  _LOCAL_LANG.default.validationerror = There are errors in this form.
+  _LOCAL_LANG.de.validationerror = Es sind Fehler im Formular aufgetreten.
+}
+
+plugin.tx_powermail.view {
+  templateRootPaths.10 = EXT:powermail/Resources/Private/Frontend/Templates/
+  partialRootPaths.10  = EXT:powermail/Resources/Private/Frontend/Partials/
+  layoutRootPaths.10   = EXT:powermail/Resources/Private/Frontend/Layouts/
+  partialRootPaths.20  = EXT:trustcaptcha/Resources/Private/Frontend/Partials/Powermail/
+}

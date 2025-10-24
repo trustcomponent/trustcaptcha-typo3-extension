@@ -1,0 +1,44 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:vh="http://typo3.org/ns/In2code/Powermail/ViewHelpers"
+      xmlns:tc="http://typo3.org/ns/Trustcomponent/Trustcaptcha/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<div class="powermail_field powermail_field_trustcaptcha powermail_fieldwrap_{field.marker} {field.css} {settings.styles.framework.fieldAndLabelWrappingClasses}">
+    <f:if condition="{field.title}">
+        <label for="powermail_field_{field.marker}" class="{settings.styles.framework.labelClasses}">
+            <f:format.htmlspecialchars>{field.title}</f:format.htmlspecialchars>
+            <f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
+        </label>
+    </f:if>
+
+    <div class="{settings.styles.framework.fieldWrappingClasses}">
+        <trustcaptcha-component
+                token-field-name="tc-verification-token"
+                sitekey="{tc:configValue(property:'siteKey')}"
+                license="{tc:configValue(property:'licenseKey')}"
+                language="{tc:configValue(property:'language')}"
+                theme="{tc:configValue(property:'theme')}"
+                autostart="{tc:configBool(property:'autostart')}"
+                invisible="{tc:configBool(property:'invisible')}"
+                hide-branding="{tc:configBool(property:'hideBranding')}"
+                custom-design="{tc:configValue(property:'customDesignJson')}"
+                custom-translations="{tc:configValue(property:'customTranslationsJson')}"
+                bypass-token="{tc:configValue(property:'bypassToken')}"
+        ></trustcaptcha-component>
+
+        <f:if condition="{field.errors}">
+            <ul class="help-block filled powermail_field_error_list">
+                <f:for each="{field.errors}" as="error">
+                    <li><f:format.htmlspecialchars>{error.message}</f:format.htmlspecialchars></li>
+                </f:for>
+            </ul>
+        </f:if>
+
+        <f:if condition="{field.description}">
+            <div class="powermail_field_description">
+                <f:format.raw>{field.description}</f:format.raw>
+            </div>
+        </f:if>
+    </div>
+</div>
+</html>
