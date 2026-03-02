@@ -2,7 +2,6 @@
   "name": "trustcomponent/trustcaptcha-typo3",
   "description": "TrustCaptcha – Privacy-first CAPTCHA solution for TYPO3. GDPR-compliant, bot protection made in Europe.",
   "type": "typo3-cms-extension",
-  "version": "2.0.0",
   "keywords": [
     "captcha",
     "anti-spam",
@@ -19,7 +18,7 @@
     "made-in-europe"
   ],
   "homepage": "https://www.trustcomponent.com/en/products/captcha/integrations/typo3-captcha-extension",
-  "license": "Apache-2.0",
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "TrustComponent",
@@ -33,7 +32,7 @@
   "require": {
     "php": ">=7.4",
     "typo3/cms-core": "^11.5 || ^12.4 || ^13.0",
-    "trustcomponent/trustcaptcha-php": "^2.0",
+    "trustcomponent/trustcaptcha-php": "^2.0.1",
     "ext-json": "*"
   },
   "autoload": {
@@ -43,7 +42,7 @@
   },
   "extra": {
     "typo3/cms": {
-      "extension-key": "trustcaptcha"
+      "extension-key": "trustcomponent_captcha"
     }
   }
 }
