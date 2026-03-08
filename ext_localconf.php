@@ -1,12 +1,22 @@
 <?php
 defined('TYPO3') or die();
 
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Imaging\IconRegistry;
 use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 
 call_user_func(function () {
+    // In Classic mode, third-party Composer dependencies from this extension are
+    // not available automatically via the project root vendor directory.
+    // Load the extension-local bundled vendor autoloader when present.
+    if (!Environment::isComposerMode()) {
+        $bundledAutoloadFile = ExtensionManagementUtility::extPath('trustcaptcha') . 'vendor/autoload.php';
+        if (is_file($bundledAutoloadFile)) {
+            require_once $bundledAutoloadFile;
+        }
+    }
 
     GeneralUtility::makeInstance(IconRegistry::class)->registerIcon(
         'trustcaptcha',
@@ -61,8 +71,11 @@ TS);
         $importIfFileExists = static function (string $extPath, bool $constants = false): void {
             $abs = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($extPath);
             if ($abs && @is_file($abs)) {
-                if ($constants) { ExtensionManagementUtility::addTypoScriptConstants("@import '" . $extPath . "'"); }
-                else { ExtensionManagementUtility::addTypoScriptSetup("@import '" . $extPath . "'"); }
+                if ($constants) {
+                    ExtensionManagementUtility::addTypoScriptConstants("@import '" . $extPath . "'");
+                } else {
+                    ExtensionManagementUtility::addTypoScriptSetup("@import '" . $extPath . "'");
+                }
             }
         };
         $importIfFileExists('EXT:powermail/Configuration/TypoScript/Main/constants.typoscript', true);
