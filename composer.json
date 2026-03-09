@@ -2,7 +2,7 @@
   "name": "trustcomponent/trustcaptcha-typo3",
   "description": "TrustCaptcha – Privacy-first CAPTCHA solution for TYPO3. GDPR-compliant, bot protection made in Europe.",
   "type": "typo3-cms-extension",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "keywords": [
     "captcha",
     "anti-spam",
