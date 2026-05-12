@@ -1,13 +1,13 @@
 # cat=basic//10; type=string; label=Site Key: Your public Site Key for the widget (required).
 siteKey =
 
-# cat=basic//20; type=string; label=Secret-Key / API-Key: Used server-side (required).
+# cat=basic//20; type=string; label=API Key: Previously labeled "Secret Key". Used server-side (required).
 secretKey =
 
 # cat=basic//30; type=string; label=License Key (optional).
 licenseKey =
 
-# cat=basic//40; type=string; label=Threshold (0..1): Accept <= threshold, reject > threshold (recommended: 0.5).
+# cat=basic//40; type=string; label=Threshold (0.20–1.00): Accept <= threshold, reject > threshold (recommended: 0.5).
 threshold = 0.5
 
 # --- Frontend widget options ---
@@ -17,14 +17,23 @@ language = auto
 # cat=frontend//20; type=string; label=Theme: "light", "dark" or "media".
 theme = light
 
+# cat=frontend//25; type=options[Full=full,Fixed=fixed]; label=Width: Width of the CAPTCHA component.
+width = full
+
 # cat=frontend//30; type=boolean; label=Autostart: Widget starts automatically when an input in the same form is touched.
 autostart = 1
 
 # cat=frontend//40; type=boolean; label=Invisible Mode: Run in invisible mode (badge only).
 invisible = 0
 
-# cat=frontend//50; type=boolean; label=Hide Branding (premium).
+# cat=frontend//45; type=options[Inline=inline,Right border=right-border,Right bottom=right-bottom,Hidden=hidden]; label=Invisible Hint: How the badge is positioned when invisible.
+invisibleHint = inline
+
+# cat=frontend//50; type=boolean; label=White Label / Hide Branding (premium).
 hideBranding = 0
+
+# cat=frontend//55; type=string; label=Privacy URL: Link to your own privacy policy (license key required).
+privacyUrl =
 
 # cat=frontend//60; type=text; label=Custom Design (JSON): Optional theme overrides as JSON (premium).
 customDesignJson =
@@ -32,8 +41,15 @@ customDesignJson =
 # cat=frontend//70; type=text; label=Custom Translations (JSON): Optional i18n overrides as JSON.
 customTranslationsJson =
 
+# cat=frontend//75; type=options[Disabled=standard,Enabled=minimal]; label=Minimal Data Mode: When enabled, the bot score is not provided.
+mode = standard
+
 # cat=frontend//80; type=string; label=Bypass Token (optional).
 bypassToken =
+
+# --- Failover ---
+# cat=failover//10; type=boolean; label=Failover Enabled: In the rare event of a TrustCaptcha outage, CAPTCHAs are accepted so your forms keep working — bot protection is skipped only while we're unreachable. Make sure your server can normally reach our API.
+failoverEnabled = 0
 
 # --- Integration toggles ---
 # cat=integration//30; type=boolean; label=Protect Frontend Login (felogin): Adds CAPTCHA to FE login. ⚠ Leave off until tested to avoid lockout.

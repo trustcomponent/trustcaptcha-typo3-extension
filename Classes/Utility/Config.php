@@ -17,14 +17,19 @@ final class Config
             'secretKey' => '',
             'licenseKey' => '',
             'threshold' => 0.5,
+            'width' => 'full',
             'language' => 'auto',
             'theme' => 'light',
             'autostart' => true,
             'invisible' => false,
+            'invisibleHint' => 'inline',
             'hideBranding' => false,
+            'privacyUrl' => '',
             'customDesignJson' => '',
             'customTranslationsJson' => '',
+            'mode' => 'standard',
             'bypassToken' => '',
+            'failoverEnabled' => false,
             'integrateLogin' => false,
             'tokenFieldName' => 'tc-verification-token',
         ];
@@ -44,9 +49,15 @@ final class Config
             $out['autostart'] = (string)($out['autostart'] ?? '1') !== '0';
             $out['invisible'] = (string)($out['invisible'] ?? '0') === '1';
             $out['hideBranding'] = (string)($out['hideBranding'] ?? '0') === '1';
+            $out['failoverEnabled'] = (string)($out['failoverEnabled'] ?? '0') === '1';
             $out['integrateLogin'] = (string)($out['integrateLogin'] ?? '0') === '1';
-            $out['threshold'] = (float)($out['threshold'] ?? 0.5);
+            // Clamp threshold to the new 0.2 floor.
+            $out['threshold'] = max(0.2, (float)($out['threshold'] ?? 0.5));
             $out['bypassToken'] = (string)($out['bypassToken'] ?? '');
+            $out['mode'] = (string)($out['mode'] ?? 'standard');
+            $out['width'] = (string)($out['width'] ?? 'full');
+            $out['privacyUrl'] = (string)($out['privacyUrl'] ?? '');
+            $out['invisibleHint'] = (string)($out['invisibleHint'] ?? 'inline');
 
             return $out;
         } catch (\Throwable $e) {
@@ -67,6 +78,11 @@ final class Config
     public static function secretKey(): string
     {
         return (string) (self::all()['secretKey'] ?? '');
+    }
+
+    public static function failoverEnabled(): bool
+    {
+        return (bool) (self::all()['failoverEnabled'] ?? false);
     }
 
     public static function integrateLogin(): bool

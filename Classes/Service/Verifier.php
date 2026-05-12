@@ -23,9 +23,9 @@ final class Verifier
             return VerificationResult::failed('Please complete the CAPTCHA.');
         }
 
-        $secret = Config::secretKey();
-        if ($secret === '') {
-            return VerificationResult::failed('Server secret key not configured');
+        $apiKey = Config::secretKey();
+        if ($apiKey === '') {
+            return VerificationResult::failed('Server API key not configured');
         }
 
         $cacheKey = sha1($token);
@@ -33,13 +33,17 @@ final class Verifier
             return self::$requestCache[$cacheKey];
         }
 
+        $trustCaptchaClass = '\\TrustComponent\\TrustCaptcha\\TrustCaptcha';
+        if (!class_exists($trustCaptchaClass)) {
+            return VerificationResult::failed('TrustCaptcha PHP library not found');
+        }
+
+        $failoverEnabled = Config::failoverEnabled();
+
         try {
-            if (class_exists('\\TrustComponent\\TrustCaptcha\\CaptchaManager')) {
-                /** @var object $verification */
-                $verification = \TrustComponent\TrustCaptcha\CaptchaManager::getVerificationResult($secret, $token);
-            } else {
-                return VerificationResult::failed('TrustCaptcha PHP library not found');
-            }
+            /** @var object $verification */
+            $trustCaptcha = new $trustCaptchaClass($apiKey);
+            $verification = $trustCaptcha->getVerificationResult($token);
 
             $passed = (bool)($verification->verificationPassed ?? false);
             $score  = (float)($verification->score ?? 1.0);
@@ -56,6 +60,16 @@ final class Verifier
 
             self::$requestCache[$cacheKey] = $result;
             return $result;
+        } catch (\TrustComponent\TrustCaptcha\ServerUnreachableException $e) {
+            if ($failoverEnabled) {
+                $result = new VerificationResult(true, true, 0.0, null);
+                self::$requestCache[$cacheKey] = $result;
+                return $result;
+            }
+            return VerificationResult::failed('CAPTCHA verification failed because our servers were not reachable. Please try again in a moment.');
+        } catch (\TrustComponent\TrustCaptcha\ClientReportedServerUnreachableException $e) {
+            // Always reject — low-trust signal.
+            return VerificationResult::failed('CAPTCHA verification could not be confirmed. Please try again.');
         } catch (\Throwable $e) {
             if (str_contains($e->getMessage(), '410')) {
                 return VerificationResult::failed('Please solve the CAPTCHA again.');

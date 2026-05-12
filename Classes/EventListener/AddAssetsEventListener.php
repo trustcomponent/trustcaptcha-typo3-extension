@@ -9,8 +9,6 @@ use TYPO3\CMS\Core\Page\Event\BeforeJavaScriptsRenderingEvent;
 
 final class AddAssetsEventListener
 {
-    private const WIDGET_ESM_URL = 'https://cdn.trustcomponent.com/trustcaptcha/2.1.x/trustcaptcha.esm.min.js';
-
     public function __invoke(BeforeJavaScriptsRenderingEvent $event): void
     {
         $request = $GLOBALS['TYPO3_REQUEST'] ?? null;
@@ -19,13 +17,15 @@ final class AddAssetsEventListener
         }
 
         $assetCollector = $event->getAssetCollector();
-        if ($assetCollector instanceof AssetCollector) {
-            $assetCollector->addJavaScript(
-                'trustcaptcha-cdn',
-                self::WIDGET_ESM_URL,
-                ['type' => 'module'],
-                ['priority' => true]
-            );
+        if (!$assetCollector instanceof AssetCollector) {
+            return;
         }
+
+        $assetCollector->addJavaScript(
+            'trustcaptcha-widget',
+            'EXT:trustcaptcha/Resources/Public/JavaScript/trustcaptcha-3.0.1.umd.min.js',
+            [],
+            ['priority' => true]
+        );
     }
 }

@@ -15,15 +15,20 @@
         <trustcaptcha-component
                 token-field-name="tc-verification-token"
                 sitekey="{tc:configValue(property:'siteKey')}"
-                license="{tc:configValue(property:'licenseKey')}"
                 language="{tc:configValue(property:'language')}"
                 theme="{tc:configValue(property:'theme')}"
-                autostart="{tc:configBool(property:'autostart')}"
-                invisible="{tc:configBool(property:'invisible')}"
-                hide-branding="{tc:configBool(property:'hideBranding')}"
-                custom-design="{tc:configValue(property:'customDesignJson')}"
-                custom-translations="{tc:configValue(property:'customTranslationsJson')}"
-                bypass-token="{tc:configValue(property:'bypassToken')}"
+                invisible-hint="{tc:configValue(property:'invisibleHint')}"
+                <f:if condition="{tc:configValue(property:'licenseKey')} != ''">license-key="{tc:configValue(property:'licenseKey')}"</f:if>
+                <f:if condition="{tc:configValue(property:'privacyUrl')} != ''">privacy-url="{tc:configValue(property:'privacyUrl')}"</f:if>
+                <f:if condition="{tc:configValue(property:'customDesignJson')} != ''">design="{tc:configValue(property:'customDesignJson')}"</f:if>
+                <f:if condition="{tc:configValue(property:'customTranslationsJson')} != ''">translations="{tc:configValue(property:'customTranslationsJson')}"</f:if>
+                <f:if condition="{tc:configValue(property:'bypassToken')} != ''">bypass-token="{tc:configValue(property:'bypassToken')}"</f:if>
+                <f:if condition="{tc:configValue(property:'width')} == 'full'">full-width="true"</f:if>
+                <f:if condition="{tc:configBool(property:'autostart')} == 'false'">autostart-disabled="true"</f:if>
+                <f:if condition="{tc:configBool(property:'invisible')} == 'true'">invisible="true"</f:if>
+                <f:if condition="{tc:configBool(property:'hideBranding')} == 'true'">white-label="true"</f:if>
+                <f:if condition="{tc:configValue(property:'mode')} == 'minimal'">minimal-data-mode="true"</f:if>
+                <f:if condition="{tc:configBool(property:'failoverEnabled')} == 'true'">failover-enabled="true"</f:if>
         ></trustcaptcha-component>
 
         <f:if condition="{field.errors}">
